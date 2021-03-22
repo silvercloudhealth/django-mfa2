@@ -1,6 +1,6 @@
 import pyotp
 from .models import *
-from . import TrustedDevice, U2F, FIDO2, totp
+from . import TrustedDevice, U2F, totp
 import simplejson
 from django.shortcuts import HttpResponse
 from mfa.views import verify,goto
@@ -23,8 +23,6 @@ def recheck(request):
         return HttpResponse(simplejson.dumps({"res":TrustedDevice.verify(request)}),content_type="application/json")
     elif method=="U2F":
         return HttpResponse(simplejson.dumps({"html": U2F.recheck(request).content}), content_type="application/json")
-    elif method == "FIDO2":
-        return HttpResponse(simplejson.dumps({"html": FIDO2.recheck(request).content}), content_type="application/json")
     elif method=="TOTP":
         return HttpResponse(simplejson.dumps({"html": totp.recheck(request).content}), content_type="application/json")
 

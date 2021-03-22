@@ -20,8 +20,8 @@ def index(request):
     for k in context["keys"]:
         if k.key_type =="Trusted Device" :
             setattr(k,"device",parse(k.properties.get("user_agent","-----")))
-        elif k.key_type == "FIDO2":
-            setattr(k,"device",k.properties.get("type","----"))
+        # elif k.key_type == "FIDO2":
+        #     setattr(k,"device",k.properties.get("type","----"))
         keys.append(k)
     context["keys"]=keys
     return render(request,"MFA.html",context)
